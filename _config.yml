@@ -12,7 +12,7 @@ timezone: +08:00
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://wiztone.github.io/
+url: http://wiztone.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -69,4 +69,4 @@ theme: another
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:wiztone/wiztone.github.io.git
+  repo: https://github.com/wiztone/wiztone.github.io.git
