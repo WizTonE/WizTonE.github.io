@@ -70,3 +70,13 @@ theme: next
 deploy:
   type: git
   repo: https://github.com/wiztone/wiztone.github.io.git
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+    
+search:
+  path: search.xml
+  field: post

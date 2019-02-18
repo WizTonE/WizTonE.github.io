@@ -17,7 +17,7 @@ tags:
     * Boxing : Value Type -> Object
     * Unboxing : Object -> Value Type
 {% endblockquote %}
-
+<!-- More -->
 舉個例子
 Boxing:
 {% asset_img 3.png %}
