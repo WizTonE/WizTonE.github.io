@@ -7,8 +7,8 @@ title: WizTonE
 subtitle:
 description:
 author: WizTonE
-language: zh-tw
-timezone: Asia/Shanghai
+language: en
+timezone: Asia/Taipei
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -80,3 +80,6 @@ feed:
 search:
   path: search.xml
   field: post
+
+sitemap:
+  path: sitemap.xml

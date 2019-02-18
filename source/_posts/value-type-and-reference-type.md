@@ -9,7 +9,7 @@ tags:
 
 ## -- 那些以為知道, 實際上卻不知道的事 --
 
-對資深程式員來說, Value type 跟 Reference Type的差異應該略知一二
+對資深程式員來說, Value Type 跟 Reference Type的差異應該略知一二
 
 但要能完整的解釋其中的差異, 卻沒這麼容易, 下面會舉幾個容易忽略的部份
 <!-- More -->
