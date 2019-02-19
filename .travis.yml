@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+- 6.9.5
+cache:
+    apt: true
+    directories:
+        - node_modules
+branches:
+  only:
+  - BlogBranch
+before_install:
+- npm install -g yarn
+- yarn global add hexo-cli gulp
+install:
+- yarn
+script:
+- hexo clean
+- hexo generate
+- gulp
+after_success:
+- git config --global user.name "WizTonE"
+- git config --global user.email "wiztone@gmail.com"
+- sed -i'' "/^ *repo/s~github\.com~${GH_TOKEN}@github.com~" _config.yml
+- hexo deploy
+env:
+  global:
+notifications:
+   slack: larrynung:56feQ3oPHk7odHHMuWnevKgJ
