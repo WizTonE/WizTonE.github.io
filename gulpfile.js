@@ -108,6 +108,6 @@ gulp.task('finish-task', function() {
     return del([bundle_js, bundle_css]);
 });
 
-gulp.task('default', function() {
-    runSequence('clean', ['copy-js', 'copy-css','copy-font-awesome'], ['minify-js', 'minify-css'], ['concat-js', 'concat-essential-css','concat-advance-css'],'finish-task');
+gulp.task('default', gulp.series('clean', ['copy-js', 'copy-css','copy-font-awesome'], ['minify-js', 'minify-css'], ['concat-js', 'concat-essential-css','concat-advance-css'],'finish-task'), function(done) {
+    done();
 });

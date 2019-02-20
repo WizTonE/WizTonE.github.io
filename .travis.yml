@@ -18,7 +18,6 @@ install:
 script:
 - hexo clean
 - hexo generate
-- gulp
 after_success:
 - git config --global user.name "WizTonE"
 - git config --global user.email "wiztone@gmail.com"
