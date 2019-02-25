@@ -84,3 +84,19 @@ search:
 
 sitemap:
   path: sitemap.xml
+
+robotstxt:
+  useragent: "*"
+  disallow:
+    - /vendors/
+    - /js/
+    - /css/
+    - /fonts/
+    - /vendors/
+    - /fancybox/
+  allow:
+    - /
+    - /archives/
+    - /categories/
+    - /tags/
+  sitemap: /sitemap.xml
