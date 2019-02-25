@@ -26,7 +26,7 @@ String底層有個**string pool**的設計, 用來紀錄建立過得字串, 以�
 
 ## String pool
 
-    String pool 會自動重用以建立過得字串實體
+    String pool 會自動重用已建立過得字串實體
 
 譬如{% asset_img 2.png %}
 
