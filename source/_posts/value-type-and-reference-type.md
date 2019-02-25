@@ -1,13 +1,11 @@
 ---
-title: value-type-and-reference-type
+title: C# Value Type vs Reference Type
 date: 2019-02-13 02:27:48
-tags:
+tags: [C#, Value Type, Reference Type]
 ---
 
 
-# [C#] Value Type vs Reference Type
-
-## -- 那些以為知道, 實際上卻不知道的事 --
+# -- 那些以為知道, 實際上卻不知道的事 --
 
 對資深程式員來說, Value Type 跟 Reference Type的差異應該略知一二
 
@@ -15,7 +13,7 @@ tags:
 <!-- More -->
 {% blockquote %}
 
-### Value Type 與 Reference Type的判別方式
+## Value Type 與 Reference Type的判別方式
 
     最容易判別的方式便是追朔該型別的原始型別
 

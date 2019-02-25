@@ -1,17 +1,14 @@
 ---
-title: boxing-unboxing
+title: C# Boxing & Unboxing
 date: 2019-02-14 09:15:42
-tags:
+tags: [C#, Boxing, Unboxing]
 ---
 
-
-# [C#] Boxing & Unboxing
-
-## -- 那些以為知道, 實際上卻不知道的事 --
+# -- 那些以為知道, 實際上卻不知道的事 --
 
 {% blockquote %}
 
-### Boxing, Unboxing
+## Boxing, Unboxing
 
     簡單來說
     * Boxing : Value Type -> Object
