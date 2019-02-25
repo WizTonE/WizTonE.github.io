@@ -10,9 +10,6 @@ branches:
   - BlogBranch
 before_install:
 - npm install
-- npm install gulp
-- npm install -g yarn
-- yarn global add hexo-cli gulp
 install:
 - yarn
 script:
