@@ -5,7 +5,7 @@ tags: [Hexo, Disqus]
 ---
 
 
-## Disqus是個專門提供留言板的服務, 且具有大的整合能力, 適合整合在blog, forum以及一些社群網站
+## Disqus是個專門提供留言板的服務, 且具有強大的整合能力, 適合整合在blog, forum以及一些社群網站
 <!-- More -->
 
 * ### 首先先去 {% link Disqus [https://disqus.com/]%} 註冊會員. {% asset_img 1.png %}
