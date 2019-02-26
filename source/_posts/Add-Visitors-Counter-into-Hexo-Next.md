@@ -26,4 +26,4 @@ date: 2019-02-26 18:13:18
 * ### 我們回到firebase網頁, 按下**Database**, 選擇**規則** {% asset_img 11.png %}
 * ### 在右方出現的規則script, 加入權限判斷 {% asset_img 12.png %}
 * ### 發佈後等待幾分鐘讓他生效, 接著回到文章, 點選看看, 次數應該會增加 {% asset_img 18.png %}
-* ### 回頭來看 firebase的資料集合, 應該會呈現下圖所示, 文章內容與count數都紀錄進來了 {% asset_img 17.png %}
+* ### 回頭來看 firebase的資料集合, 應該會呈現下圖所示, 文章標題與count數都紀錄進來了 {% asset_img 17.png %}
