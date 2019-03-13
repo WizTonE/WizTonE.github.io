@@ -1,5 +1,8 @@
 ---
-title: IFTTT-RSS-to-LinkedIn-Preview-Platform
-date: 2019-03-13 19:46:33
+title: 自訂 IFTTT Applet by Platform
+date: 
 tags:
+  - IFTTT
+  - RSS
+  - LinkedIn
 ---
