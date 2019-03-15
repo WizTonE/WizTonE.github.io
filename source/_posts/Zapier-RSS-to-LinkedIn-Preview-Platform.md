@@ -28,7 +28,7 @@ date: 2019-03-15 19:12:43
 * 接下來 在with this one!中 填入LinkedIn, 選擇**LinkedIn**
 {% asset_img 4.png %}
 
-* 按下 **Make a Zap!**
+* 接下來下面的選項會開啟
 {% asset_img 5.png %}
 
 * 接下來就是設定RSS的動作了, 在When this happens中選擇 **New item in Feed**
