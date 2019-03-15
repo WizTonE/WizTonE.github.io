@@ -51,7 +51,7 @@ date: 2019-03-16 00:42:34
 * 畫面會顯示Dropbox Trigger, 並說明限制為何, 按下Continue繼續
 {% asset_img 6.png %}
 
-* 按下Connect an Acount, 登入dropbox並按下Allow
+* 按下Connect an Account, 登入dropbox並按下Allow
 {% asset_img 7.png %}
 {% asset_img 8.png %}
 
