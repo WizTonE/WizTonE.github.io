@@ -1,7 +1,7 @@
 ---
 title: Share Rss to linkedin via Zapier
 tags:
-  - ZAPIER
+  - Zapier
   - RSS
   - LinkedIn
 date: 2019-03-15 19:12:43
