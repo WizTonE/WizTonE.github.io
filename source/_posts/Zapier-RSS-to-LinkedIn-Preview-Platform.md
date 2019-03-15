@@ -10,7 +10,7 @@ date: 2019-03-15 19:12:43
 
 # 透過 Zapier 轉發 blog 到 Linkedin
 
- 假設IFTTT share to linked功能消失時 *(對.. 就這麼突然消失了)*
+ 假設IFTTT share to linkedin功能消失時 *(對.. 就這麼突然消失了)*
 
  我們還可以透過 Zapier來做到一樣的事情
 
