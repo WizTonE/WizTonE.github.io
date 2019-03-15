@@ -42,7 +42,9 @@ date: 2019-03-16 00:42:34
 * 接下來在右邊格子打上CloudConvert, 選取下面的服務
 {% asset_img 3.png %}
 
-* 畫面會跳出兩個已存在的Zap, 這步驟先選取 **Convert files added Dropbox folder with CloudConvert**, 按下**Use This Zap**
+* 畫面會跳出兩個已存在的Zap, 這步驟先選取 **Convert files added Dropbox folder with CloudConvert**, 
+
+  按下**Use This Zap**
 {% asset_img 4.png %}
 {% asset_img 5.png %}
 
