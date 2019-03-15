@@ -548,8 +548,8 @@ quicklink:
 
 # Disqus
 disqus:
-  enable: false
-  shortname:
+  enable: true
+  shortname: wiztone
   count: true
   lazyload: false
 
