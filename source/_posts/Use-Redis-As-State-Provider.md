@@ -22,7 +22,7 @@ tags: [C#, Redis]
     安裝完後會跳出readme.txt, 講Azure有提供Redis 的資源
 
 * ### 在Web.config中找到 sessionState區塊, 在 providers內將原有的部份mark起來, 再加入以下字串
-    {% asset_img 02.png %}
+    {% asset_img 03.png %}
 
     {% codeblock %}
     <add name="MySessionStateStore" 		type="Microsoft.Web.Redis.RedisSessionStateProvider" host="127.0.0.1" accessKey="" 	ssl="false" />
