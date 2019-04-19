@@ -1,7 +1,7 @@
 ---
 title: Use Redis As State Provider
 date: 2019-04-19 19:46:53
-tags:
+tags: [C#, Redis]
 ---
 
 
