@@ -25,7 +25,7 @@ tags: [C#, Redis]
     {% asset_img 03.png %}
 
     {% codeblock %}
-    <add name="MySessionStateStore" 		type="Microsoft.Web.Redis.RedisSessionStateProvider" host="127.0.0.1" accessKey="" 	ssl="false" />
+    <add name="DefaultSessionProvider" 		type="Microsoft.Web.Redis.RedisSessionStateProvider" host="127.0.0.1" accessKey="" 	ssl="false" />
     {% endcodeblock %}
     
     ip記得替換成redis的位置
