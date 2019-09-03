@@ -7,9 +7,9 @@
   },
   "dependencies": {
     "braces": "^2.3.2",
-    "del": "^4.0.0",
+    "del": "^4.1.1",
     "gifsicle": "^4.0.1",
-    "gulp-clean-css": "^4.0.0",
+    "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-uglify": "^3.0.2",
     "hexo": "^3.9.0",
@@ -22,13 +22,13 @@
     "hexo-generator-sitemap": "^1.2.0",
     "hexo-generator-tag": "^0.2.0",
     "hexo-renderer-ejs": "^0.3.1",
-    "hexo-renderer-marked": "^1.0.1",
+    "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.3.3",
     "imagemin-gifsicle": "^6.0.1",
     "jpegtran-bin": "^4.0.0",
     "minimatch": "^3.0.4",
-    "npm": "^6.10.2",
+    "npm": "^6.11.2",
     "run-sequence": "^2.2.1"
   }
 }
