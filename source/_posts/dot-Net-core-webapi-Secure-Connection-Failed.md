@@ -1,5 +1,5 @@
 ---
-title: .Net core webapi Secure Connection Failed
+title: .Net core webapi Secure Connection Failed in debug mode
 tags:
   - .net core
   - 'C#'
@@ -7,9 +7,11 @@ date: 2019-09-03 12:42:09
 ---
 
 
-# .Net core webapi getting Secure Connection Failed error
+# .Net core webapi getting Secure Connection Failed error while debugging
 
-If we initial an .net core webapi project but getting Secure Connection Failed error like this.
+<!-- More -->
+
+If we initial a .net core webapi project but getting Secure Connection Failed error like this.
 {% asset_img 01.png %}
 
 We can try some methods below.
