@@ -9,7 +9,7 @@ categories:
   - Next.js
 ---
 
-## Using <Link> when linking between pages
+## Using ```<Link>``` when linking between pages
 
 <!-- More -->
 
