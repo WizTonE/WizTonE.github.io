@@ -11,6 +11,8 @@ categories:
 
 ## Using <Link> when linking between pages
 
+<!-- More -->
+
 Next.js uses <Link> to wrap the <a> tag. The tag <Link > can let you navigate to the client-side page.
 
 First, import the Link library on both the very top of index.js and first-post.js
