@@ -50,9 +50,9 @@ public static void main(String[ ] args) {
 private static void A(Object... a)
 {
     if(a == null) 
-            System.out.println("...");
-        else
-            System.out.println(a.length);
+        System.out.println("...");
+    else
+        System.out.println(a.length);
 }
 {% endcodeblock %}
 
