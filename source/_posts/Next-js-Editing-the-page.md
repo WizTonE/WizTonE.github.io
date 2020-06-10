@@ -1,5 +1,5 @@
 ---
-title: Next-js-Editing-the-page
+title: Next.js Editing the page
 tags:
   - Next.js
   - JavaScript
