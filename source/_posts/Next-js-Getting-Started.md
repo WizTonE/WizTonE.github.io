@@ -4,6 +4,8 @@ tags:
   - Next.js
   - JavaScript
   - React
+categories:
+ - Next.js
 date: 2020-06-10 17:06:01
 ---
 
