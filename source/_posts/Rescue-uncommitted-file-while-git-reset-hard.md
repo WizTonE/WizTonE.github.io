@@ -1,6 +1,6 @@
 ---
 title: Rescue uncommitted files while using git reset --hard
-date: 2020-10-05 19:55:55
+date: 2020-10-07 14:47:47
 tags: [git]
 ---
 
