@@ -29,10 +29,14 @@ Assume that we have a folder Experiment and there is 3 files inside.
 Which is Demo1.txt Demo2.txt ApiController.cs
 {% asset_img 02.png %}
 Then:
-- Using 'git init' {% asset_img 03.png %}
-- Using 'git add .' {% asset_img 04.png %}
-- Using 'git reset --hard' for demo and we can see those files are gone.{% asset_img 05.png %}
-- Using 'git reflog' then realize does not have any commit {% asset_img 06.png %}
+- Using {% blockquote %}git init{% endblockquote %} {% asset_img 03.png %}
+
+- Using {% blockquote %}git add .{% endblockquote %} {% asset_img 04.png %}
+
+- Using {% blockquote %}git reset --hard{% endblockquote %} for demo and we can see those files are gone.{% asset_img 05.png %}
+
+- Using {% blockquote %}git reflog{% endblockquote %} then realize does not have any commit {% asset_img 06.png %}
+
 So how do we rescue the files?
 
 # First : Collect all dangling files to lost-found folders
