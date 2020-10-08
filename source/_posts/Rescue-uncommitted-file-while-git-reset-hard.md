@@ -33,7 +33,7 @@ Then:
 - Using 'git add .' {% asset_img 04.png %}
 - Using 'git reset --hard' for demo and we can see those files are gone.{% asset_img 05.png %}
 - Using 'git reflog' then realize does not have any commit {% asset_img 06.png %}
-So how should we rescue the files?
+So how do we rescue the files?
 
 # First : Collect all dangling files to lost-found folders
 We can collect all dangling files by this command {% codeblock line_number:false %} git fsck --lost-found {% endcodeblock %}
@@ -44,6 +44,7 @@ After that, it'll show those dangling files. Go to .git/lost-found/other {% asse
 Using grep command to search the keyword. EX : grep -rw "Demo1"
 {% asset_img 09.png %}
 So we can make sure 85002821eb3812840.... is the Demo1.txt
+
 We can gerp ApiController, too.
 {% asset_img 10.png %}
 
