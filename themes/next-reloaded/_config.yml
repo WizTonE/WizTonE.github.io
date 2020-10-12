@@ -1054,7 +1054,7 @@ images: images
 google_adsense:
   enable: true
   google_ad_client_id: ca-pub-9269357584152553 # 請修改成自己的
-  enable_page_level_ads: true
+  enable_page_level_ads: false
   ## siderbar_enable 這邊建立廣告後才會用到
   siderbar_enable: true # 是否開啟側邊欄廣告
-  siderbar_data_ad_slot: 0000000 # 請輸入廣告 slot
+  siderbar_data_ad_slot: 3806385088 # 請輸入廣告 slot
