@@ -1,5 +1,5 @@
 ---
-title: Rescue uncommitted files while using git reset --hard
+title: Recover uncommitted files after using git reset --hard
 date: 2020-10-07 14:47:47
 tags: [git]
 ---
