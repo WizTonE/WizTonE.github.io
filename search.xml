@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Recover uncommitted files after using git reset --hard</title>
+      <link href="2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/"/>
+      <url>2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/</url>
+      
+        <content type="html"><![CDATA[<img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/01.jpg" class=""><a id="more"></a><p>Sometimes we have an existing folder, ‘git init’ and ‘git add .’ ready to commit.</p><p>Then we realize some unnecessary files have been added.</p><p>In this situation, usually using ‘git reset –soft’ to reset the stage status. </p><p>BUT we might use ‘git reset –hard’ by accident…</p><p>Some articles said we can use ‘git reflog’ to find out the lost commits. </p><p>However, because our git repo is the initialed one without any commit so reflog might be useless.</p><p>If using ‘git reset –hard’ at very beginning then want to rescue files back, this article might be help.</p><hr><h1 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h1><p>Assume that we have a folder Experiment and there is 3 files inside.Which is Demo1.txt Demo2.txt ApiController.cs</p><img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/02.png" class=""><p>Then:</p><ul><li><p>Using <blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init </span><br></pre></td></tr></table></figure> </blockquote> <img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/03.png" class=""></p></li><li><p>Using <blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure> </blockquote> <img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/04.png" class=""></p></li><li><p>Using <blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset --hard </span><br></pre></td></tr></table></figure> </blockquote> for demo and we can see those files are gone.<img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/05.png" class=""></p></li><li><p>Using <blockquote><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reflog </span><br></pre></td></tr></table></figure> </blockquote> then realize does not have any commit <img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/06.png" class=""></p></li></ul><p>So how do we rescue the files?</p><h1 id="First-Collect-all-dangling-files-to-lost-found-folders"><a href="#First-Collect-all-dangling-files-to-lost-found-folders" class="headerlink" title="First : Collect all dangling files to lost-found folders"></a>First : Collect all dangling files to lost-found folders</h1><p>We can collect all dangling files by this command <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git fsck --lost-found </span><br></pre></td></tr></table></figure></p><img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/07.png" class=""><p>After that, it’ll show those dangling files. Go to .git/lost-found/other <img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/08.png" class=""></p><h1 id="Second-Grep-the-keyword-from-those-dangling-files"><a href="#Second-Grep-the-keyword-from-those-dangling-files" class="headerlink" title="Second : Grep the keyword from those dangling files"></a>Second : Grep the keyword from those dangling files</h1><p>Using grep command to search the keyword. EX : grep -rw “Demo1”</p><img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/09.png" class=""><p>So we can make sure 85002821eb3812840…. is the Demo1.txt</p><p>We can gerp ApiController, too.</p><img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/10.png" class=""><h1 id="Third-Copy-to-the-original-folder-and-rename-it"><a href="#Third-Copy-to-the-original-folder-and-rename-it" class="headerlink" title="Third : Copy to the original folder and rename it"></a>Third : Copy to the original folder and rename it</h1><p>Finally, just copy those files to the original path and rename it, and Bob’s your uncle.</p><img src="/2020/10/07/Rescue-uncommitted-file-while-git-reset-hard/11.png" class=""><h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><ul><li><a href="https://git-scm.com/docs/git-fsck" title="" target="">git-fsck</a></li><li><a href="https://gitbook.tw/chapters/using-git/reset-commit.html" title="" target="">Reset commit</a></li><li><a href="https://gitbook.tw/chapters/using-git/restore-hard-reset-commit.html" title="" target="">Reflog</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Next.js Assets, Metadata &amp; CSS</title>
+      <link href="2020/06/17/Next-js-Assets-Metadata-CSS/"/>
+      <url>2020/06/17/Next-js-Assets-Metadata-CSS/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Next-js-handles-static-assets-such-as-images-and-video-Metadata-like-HTML-tag-CSS-styling-allows-you-to-import-css-and-scss-files"><a href="#Next-js-handles-static-assets-such-as-images-and-video-Metadata-like-HTML-tag-CSS-styling-allows-you-to-import-css-and-scss-files" class="headerlink" title="Next.js handles static assets such as images and video. Metadata like HTML tag. CSS styling allows you to import css and scss files."></a>Next.js handles static assets such as images and video. Metadata like HTML tag. CSS styling allows you to import css and scss files.</h2><a id="more"></a><ul><li><h2 id="Assets"><a href="#Assets" class="headerlink" title="Assets"></a>Assets</h2><p>  When we put static files like images and video under top-level ‘public’ folder. Files in the public folder can be referenced by pages.</p><p>  So we can use the picture vercel.svg into our first-post page.</p><p>  <code>&lt;img src=&quot;/vercel.svg&quot; alt=&quot;Vercel Logo&quot; className=&quot;logo&quot; /&gt;</code></p><p>  The page will show vercel picture.</p>  <img src="/2020/06/17/Next-js-Assets-Metadata-CSS/02.png" class=""></li><li><h2 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h2><p>Metadata like html tag <code>&lt;head&gt;</code> has been instead of <code>&lt;Head&gt;</code> , which is React component in Next.js.We can add <code>&lt;Head&gt;</code> into our first-post.js</p><img src="/2020/06/17/Next-js-Assets-Metadata-CSS/01.png" class=""></li><li><h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul><li>Next.js use styled-jsx which is a CSS in JS, we can write the CSS only for the specific component. Besides, Next.js allows to import .css and .scss files.</li><li>We can also create the _app.js for the global entry point, then import CSS file for the global CSS styling.</li></ul></li><li><h2 id="Layout-Component"><a href="#Layout-Component" class="headerlink" title="Layout Component"></a>Layout Component</h2><p>We can create a layout as a component with CSS styling import.</p><ul><li>Create the folder <code>components</code> and <code>styles</code> in the top level.</li><li>Create layout.js and layout.module.css in the components folder.<img src="/2020/06/17/Next-js-Assets-Metadata-CSS/03.png" class=""></li><li>Create the folder  in the top level</li><li>Create a utility CSS classes utils.module.css in styles folder for reuse css style.<img src="/2020/06/17/Next-js-Assets-Metadata-CSS/04.png" class=""></li><li>Now we can easy use the layout.js in our first-post.js</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Head from &#39;next&#x2F;head&#39;</span><br><span class="line">import Layout, &#123; siteTitle &#125; from &#39;..&#x2F;components&#x2F;layout&#39;</span><br><span class="line">import utilStyles from &#39;..&#x2F;styles&#x2F;utils.module.css&#39;</span><br><span class="line"></span><br><span class="line">export default function Home() &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;Layout home&gt;</span><br><span class="line">      &lt;Head&gt;</span><br><span class="line">        &lt;title&gt;&#123;siteTitle&#125;&lt;&#x2F;title&gt;</span><br><span class="line">      &lt;&#x2F;Head&gt;</span><br><span class="line">      &lt;section className&#x3D;&#123;utilStyles.headingMd&#125;&gt;</span><br><span class="line">        &lt;p&gt;[Your Self Introduction]&lt;&#x2F;p&gt;</span><br><span class="line">        &lt;p&gt;</span><br><span class="line">          (This is a sample website - you’ll be building a site like this on&#123;&#39; &#39;&#125;</span><br><span class="line">          &lt;a href&#x3D;&quot;https:&#x2F;&#x2F;nextjs.org&#x2F;learn&quot;&gt;our Next.js tutorial&lt;&#x2F;a&gt;.)</span><br><span class="line">        &lt;&#x2F;p&gt;</span><br><span class="line">      &lt;&#x2F;section&gt;</span><br><span class="line">    &lt;&#x2F;Layout&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><img src="/2020/06/17/Next-js-Assets-Metadata-CSS/05.png" class=""></li><li><h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><ul><li><a href="https://nextjs.org/learn/basics/assets-metadata-css" title="" target="">Assets, Metadata, and CSS</a></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Next.js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Next.js </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> React </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Weird thing in params</title>
+      <link href="2020/06/10/Weird-thing-in-params/"/>
+      <url>2020/06/10/Weird-thing-in-params/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Params-is-a-basic-design-in-programming-language-with-different-name-but-the-same-purpose"><a href="#Params-is-a-basic-design-in-programming-language-with-different-name-but-the-same-purpose" class="headerlink" title="Params is a basic design in programming language, with different name but the same purpose"></a>Params is a basic design in programming language, with different name but the same purpose</h2><a id="more"></a><p>Following the C# code, guess the output</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">static void Main(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">    var o &#x3D; default(object);</span><br><span class="line">    A(o);</span><br><span class="line">    A(null);</span><br><span class="line">    A(null, null);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static void A(params object[] a)</span><br><span class="line">&#123;</span><br><span class="line">    if(a &#x3D;&#x3D; null) </span><br><span class="line">        Console.WriteLine(&quot;...&quot;);</span><br><span class="line">    else</span><br><span class="line">        Console.WriteLine(a.Length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>The answer is:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1</span><br><span class="line">...</span><br><span class="line">2</span><br></pre></td></tr></table></figure><p>Here is the Java code:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public static void main(String[ ] args) &#123;</span><br><span class="line">    Object o &#x3D; null;</span><br><span class="line">        A(o);</span><br><span class="line">        A(null);</span><br><span class="line">        A(null, null);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static void A(Object... a)</span><br><span class="line">&#123;</span><br><span class="line">    if(a &#x3D;&#x3D; null) </span><br><span class="line">        System.out.println(&quot;...&quot;);</span><br><span class="line">    else</span><br><span class="line">        System.out.println(a.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>The answer is the same with C#:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1</span><br><span class="line">...</span><br><span class="line">2</span><br></pre></td></tr></table></figure><p>Now let’s try Python version:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def foo(*therest):</span><br><span class="line">    if therest is None:</span><br><span class="line">        print(&quot;...&quot;)</span><br><span class="line">    else:</span><br><span class="line">        print(len(therest))</span><br><span class="line">NoneObj &#x3D; type(None)()</span><br><span class="line">foo(NoneObj)</span><br><span class="line">foo(None)</span><br><span class="line">foo(None, None)</span><br></pre></td></tr></table></figure><p>Finally, we got different answer:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">In [1]: </span><br></pre></td></tr></table></figure><p>It’s because Python doesn’t have Null object.</p><hr><p>Now, try to compare the C# code with IL Code</p><p>C# code:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var o &#x3D; default(object);</span><br><span class="line">A(o);</span><br><span class="line">A(null);</span><br><span class="line">A(null, null);</span><br></pre></td></tr></table></figure><p>IL Code:</p><figure class="highlight c"><figcaption><span>#</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// [9 13 - 9 37]</span></span><br><span class="line">IL_0001: ldnull</span><br><span class="line">IL_0002: stloc<span class="number">.0</span>      <span class="comment">// o</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// [10 13 - 10 18]</span></span><br><span class="line">IL_0003: ldc.i4<span class="number">.1</span></span><br><span class="line">IL_0004: newarr       [System.Runtime]System.Object</span><br><span class="line">IL_0009: dup</span><br><span class="line">IL_000a: ldc.i4<span class="number">.0</span></span><br><span class="line">IL_000b: ldloc<span class="number">.0</span>      <span class="comment">// o</span></span><br><span class="line">IL_000c: stelem.ref</span><br><span class="line">IL_000d: call         <span class="keyword">void</span> ConsoleApp1.Program::A(object[])</span><br><span class="line">IL_0012: nop</span><br><span class="line"></span><br><span class="line"><span class="comment">// [11 13 - 11 21]</span></span><br><span class="line">IL_0013: ldnull</span><br><span class="line">IL_0014: call         <span class="keyword">void</span> ConsoleApp1.Program::A(object[])</span><br><span class="line">IL_0019: nop</span><br><span class="line"></span><br><span class="line"><span class="comment">// [12 13 - 12 27]</span></span><br><span class="line">IL_001a: ldc.i4<span class="number">.2</span></span><br><span class="line">IL_001b: newarr       [System.Runtime]System.Object</span><br><span class="line">IL_0020: call         <span class="keyword">void</span> ConsoleApp1.Program::A(object[])</span><br><span class="line">IL_0025: nop</span><br></pre></td></tr></table></figure><p>Now it’s clear, we can see <code>A(0)</code> and <code>A(null, null)</code>, </p><p>The IL code will create a new array with elements of type object then pass to the function A</p><p>But <code>A(null)</code> just pass null as a parameter, so we will get different answer.</p><p>That means when compiler try to explain the syntax with different way.</p><h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><ul><li><a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.opcodes.ldnull?view=netcore-3.1" title="" target="">ldnull</a></li><li><a href="https://docs.microsoft.com/en-us/dotnet/api/system.reflection.emit.opcodes.newarr?view=netcore-3.1" title="" target="">newarr</a></li><li><a href="https://appdividend.com/2019/08/16/null-object-in-python-example-python-null-value-tutorial/" title="" target="">Null object in python</a></li><li><a href="https://www.learnpython.org/en/Multiple_Function_Arguments" title="" target="">Python : Multiple Function Arguments</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> Python </tag>
+            
+            <tag> params </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Next.js Link to each other</title>
+      <link href="2020/06/10/Next-js-Link-to-each-other/"/>
+      <url>2020/06/10/Next-js-Link-to-each-other/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Using-lt-Link-gt-when-linking-between-pages"><a href="#Using-lt-Link-gt-when-linking-between-pages" class="headerlink" title="Using &lt;Link&gt; when linking between pages"></a>Using <code>&lt;Link&gt;</code> when linking between pages</h2><a id="more"></a><p>Next.js uses <code>&lt;Link&gt;</code> to wrap the <code>&lt;a&gt;</code> tag. The tag <code>&lt;Link&gt;</code> can let you navigate to the client-side page.</p><p>First, import the Link library on both the very top of index.js and first-post.js</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Link from &#39;next&#x2F;link&#39;</span><br></pre></td></tr></table></figure><p>Second, Add the link “My First Post” into the tag <code>&lt;div className=&quot;grid&quot;&gt;</code> in index.js. Type the following contents.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link href&#x3D;&quot;&#x2F;posts&#x2F;first-post&quot;&gt;&lt;a className&#x3D;&quot;card&quot;&gt;&lt;h3&gt;First post!&lt;&#x2F;h3&gt;&lt;&#x2F;a&gt;&lt;&#x2F;Link&gt;</span><br></pre></td></tr></table></figure><p>Finally, we add a Link into our first-post.js by following contents.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export default function FirstPost() &#123;</span><br><span class="line">    return(</span><br><span class="line">     &lt;&gt;</span><br><span class="line">      &lt;h1&gt;First Post&lt;&#x2F;h1&gt;</span><br><span class="line">     &lt;h2&gt;</span><br><span class="line">         &lt;Link href&#x3D;&quot;&#x2F;&quot;&gt;</span><br><span class="line">           &lt;a&gt;Back to home&lt;&#x2F;a&gt;</span><br><span class="line">         &lt;&#x2F;Link&gt;</span><br><span class="line">       &lt;&#x2F;h2&gt;</span><br><span class="line">     &lt;&#x2F;&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><p>Then we can see the link on the page</p><img src="/2020/06/10/Next-js-Link-to-each-other/01.png" class=""><img src="/2020/06/10/Next-js-Link-to-each-other/02.png" class=""><p>So, we can navigate between each other by <code>&lt;Link&gt;</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Next.js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Next.js </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> React </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Next.js Create a new page</title>
+      <link href="2020/06/10/Next-js-Create-a-new-page/"/>
+      <url>2020/06/10/Next-js-Create-a-new-page/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Create-a-new-post-under-the-“pages”-folder"><a href="#Create-a-new-post-under-the-“pages”-folder" class="headerlink" title="Create a new post under the “pages” folder"></a>Create a new post under the “pages” folder</h2><a id="more"></a><p>A page in Next.js means a React Component exported from the file in pages folder.</p><p>So we can easily add a post under the pages folder. For better file management, creating a “posts” folder under the pages folder.</p><img src="/2020/06/10/Next-js-Create-a-new-page/01.png" class=""><p>Then we can add the first post file “first-post.js” manually into the posts folder.</p><img src="/2020/06/10/Next-js-Create-a-new-page/02.png" class=""><p>Type the following contents in the “first-post.js”</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export default function FirstPost() &#123;</span><br><span class="line">  return &lt;h1&gt;First Post&lt;&#x2F;h1&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>After saving the file, we can check the local wetsite using the post path <a href="http://localhost:3000/posts/first-post" target="_blank" rel="noopener">http://localhost:3000/posts/first-post</a></p><img src="/2020/06/10/Next-js-Create-a-new-page/03.png" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> Next.js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Next.js </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> React </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Next.js Editing the page</title>
+      <link href="2020/06/10/Next-js-Editing-the-page/"/>
+      <url>2020/06/10/Next-js-Editing-the-page/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Next-js-editing-the-page"><a href="#Next-js-editing-the-page" class="headerlink" title="Next.js editing the page"></a>Next.js editing the page</h1><a id="more"></a><h2 id="Editing-the-index-js"><a href="#Editing-the-index-js" class="headerlink" title="Editing the index.js"></a>Editing the index.js</h2><p>We can find the index.js file from the pages folder.</p><img src="/2020/06/10/Next-js-Editing-the-page/01.png" class=""><p>We can try replacing the “Welcome to” to “Let’s play”</p><img src="/2020/06/10/Next-js-Editing-the-page/02.png" class=""><img src="/2020/06/10/Next-js-Editing-the-page/03.png" class=""><p>Then connect to the local website <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Blog\Next.js\nextjs-blog</span><br><span class="line">λ npm run dev</span><br></pre></td></tr></table></figure><p>We can see the server support Hot Reloading feature, the local website will automatically reload and update the page we just edit and save.</p><img src="/2020/06/10/Next-js-Editing-the-page/04.png" class=""><p>And the first page will automatic reloading.</p><img src="/2020/06/10/Next-js-Editing-the-page/05.png" class=""><img src="/2020/06/10/Next-js-Editing-the-page/06.png" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> Next.js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Next.js </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> React </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Next.js Getting Started</title>
+      <link href="2020/06/10/Next-js-Getting-Started/"/>
+      <url>2020/06/10/Next-js-Getting-Started/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Next-js-install"><a href="#Next-js-install" class="headerlink" title="Next.js install"></a>Next.js install</h1><a id="more"></a><p>Next.js is a framework for server-rendered React applications as well as statically exported React apps.</p><h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>To get the first next app, just type the code below.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Blog\Next.js</span><br><span class="line">λ npm init next-app nextjs-blog</span><br></pre></td></tr></table></figure><p>Then just waiting the npm install the package</p><img src="/2020/06/10/Next-js-Getting-Started/01.png" class=""><p>After install whole package there will be a nextjs-blog folder, enter it</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Blog\Next.js</span><br><span class="line">λ cd nextjs-blog</span><br></pre></td></tr></table></figure><p>Then just run the local server</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Blog\Next.js\nextjs-blog</span><br><span class="line">λ npm run dev</span><br></pre></td></tr></table></figure><p>The local server website will be <a href="http://localhost:3000" target="_blank" rel="noopener">http://localhost:3000</a></p><img src="/2020/06/10/Next-js-Getting-Started/02.png" class=""><p>The website looks like simple and clear</p><img src="/2020/06/10/Next-js-Getting-Started/03.png" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> Next.js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Next.js </tag>
+            
+            <tag> JavaScript </tag>
+            
+            <tag> React </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>.Net core webapi Secure Connection Failed in debug mode</title>
+      <link href="2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/"/>
+      <url>2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Net-core-webapi-getting-Secure-Connection-Failed-error-while-debugging"><a href="#Net-core-webapi-getting-Secure-Connection-Failed-error-while-debugging" class="headerlink" title=".Net core webapi getting Secure Connection Failed error while debugging"></a>.Net core webapi getting Secure Connection Failed error while debugging</h1><a id="more"></a><p>If we initial a .net core webapi project but getting Secure Connection Failed error like this.</p><img src="/2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/01.png" class=""><p>We can try some methods below.</p><ul><li><h2 id="Enforce-ASP-NET-Core-HTTPS-development-certificate-on-Windows"><a href="#Enforce-ASP-NET-Core-HTTPS-development-certificate-on-Windows" class="headerlink" title="Enforce ASP.NET Core HTTPS development certificate on Windows"></a>Enforce ASP.NET Core HTTPS development certificate on Windows</h2><p>  If we have certification but not trusted, we can use this method.</p><ul><li>Open Console</li><li>type “dotnet ooo-certs https –trust”<img src="/2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/03.png" class=""></li><li>Select yes in the import windows.<img src="/2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/02.png" class=""></li></ul></li><li><h2 id="Opt-out-of-HTTPS-on-project-creation"><a href="#Opt-out-of-HTTPS-on-project-creation" class="headerlink" title="Opt-out of HTTPS on project creation"></a>Opt-out of HTTPS on project creation</h2><p>  Start a new project without HTTPS</p><ul><li><p>Open console.</p></li><li><p>type “dotnet new webapp –no-https” </p><img src="/2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/05.png" class=""></li><li><p>We can create a new project without HTTPS from UI as well.</p><img src="/2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/08.png" class=""></li></ul></li><li><h2 id="Disable-SSL-in-debug-mode"><a href="#Disable-SSL-in-debug-mode" class="headerlink" title="Disable SSL in debug mode."></a>Disable SSL in debug mode.</h2><p>If we had choosed the “Configure for HTTPS” but actually we didn’t want to use it. We can use this method.</p><ul><li>Open the project property page.</li><li>Go to debug tab.</li><li>Uncheck Enable SSL.<img src="/2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/07.png" class=""></li></ul></li></ul><h3 id="After-Settle-down-the-environment-The-website-should-run-properly"><a href="#After-Settle-down-the-environment-The-website-should-run-properly" class="headerlink" title="After Settle down the environment. The website should run properly."></a>After Settle down the environment. The website should run properly.</h3>  <img src="/2019/09/03/dot-Net-core-webapi-Secure-Connection-Failed/06.png" class=""><h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><hr><ul><li><a href="https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-2.2&tabs=visual-studio" title="" target="">Enforce HTTPS in ASP.NET Core</a></li><li><a href="https://blog.yowko.com/dotnet-core-httpclientfactory-invalid-certificate/" title="" target="">讓 .NET Core 的 HttpClientFactory 不驗證 Https 憑證</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> .net core </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Merge Split Vmdk Into Single File</title>
+      <link href="2019/08/01/Merge-Split-Vmdk-Into-Single-File/"/>
+      <url>2019/08/01/Merge-Split-Vmdk-Into-Single-File/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Merge-split-vmdk-files-into-single-one"><a href="#Merge-split-vmdk-files-into-single-one" class="headerlink" title="Merge split vmdk files into single one."></a>Merge split vmdk files into single one.</h1><p>VMware Disk I/O performance tunning</p><a id="more"></a><p>In the very beginning when initial a vm with VMware, it will ask you to choose two different storage types, split file and single file mode.</p><p>Split files are very useful to put them on filesystem with file size limit according the disk partition format (FAT32,.etc).</p><p>For better performance you can use single file and preallocated disk.</p><p>If you choosed the split one and got the performance issue in your vm, you probablly might convert the vmdk files into the monolithic mode.</p><p>Here is the steps:</p><ul><li><p>Shutdown the VM.</p></li><li><p>Open the VM folder</p><img src="/2019/08/01/Merge-Split-Vmdk-Into-Single-File/01.png" class=""></li><li><p>Type cmd in the path then enter</p><img src="/2019/08/01/Merge-Split-Vmdk-Into-Single-File/02.png" class=""></li><li><p>Type c:\Program Files (x86)\VMware\VMware Workstation vmware-vdiskmanager.exe -r “Windows 10 x64.vmdk” -t 0 NewMonolithic.vmdk</p></li><li><p>Wait the “Convert” to 100%.</p></li><li><p>Delete those old 00xx.vmdk files, then rename NewMonolithic.vmdk to Windows 10 x64.vmdk</p></li><li><p>Power on the VM, the VM should run faster then before.</p></li></ul><h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><hr><ul><li><a href="https://vmexpo.wordpress.com/2014/04/15/how-to-merge-multiple-vmdks-into-single-vmdk/" title="" target="">HOW TO MERGE MULTIPLE VMDK’S INTO SINGLE VMDK</a></li><li><a href="https://kb.vmware.com/s/article/2006898" title="" target="">Changing a monolithic disk to a split disk in VMware Workstation</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> VMware </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Use ConnectionString as State Provider Connection</title>
+      <link href="2019/04/22/Use-Connection-String-as-State-Provider-Connection/"/>
+      <url>2019/04/22/Use-Connection-String-as-State-Provider-Connection/</url>
+      
+        <content type="html"><![CDATA[<h2 id="上一篇提到以Redis當作State-Provider"><a href="#上一篇提到以Redis當作State-Provider" class="headerlink" title="上一篇提到以Redis當作State Provider"></a>上一篇提到以Redis當作State Provider</h2><h2 id="這篇介紹如何依據不同環境自動切換-State-Provider-連線位置"><a href="#這篇介紹如何依據不同環境自動切換-State-Provider-連線位置" class="headerlink" title="這篇介紹如何依據不同環境自動切換 State Provider 連線位置"></a>這篇介紹如何依據不同環境自動切換 State Provider 連線位置</h2><a id="more"></a><h3 id="本篇利用-ConnectionStrings-configuration來做到自動切換連線"><a href="#本篇利用-ConnectionStrings-configuration來做到自動切換連線" class="headerlink" title="本篇利用 ConnectionStrings configuration來做到自動切換連線"></a>本篇利用 ConnectionStrings configuration來做到自動切換連線</h3><ul><li><p>首先 先設定 ConnectionStrings的config, 可於Web.config中設定, 亦可獨立由專案設定  設定如下所示</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;connectionStrings&gt;</span><br><span class="line">        &lt;add name&#x3D;&quot;Redis&quot; connectionString&#x3D;&quot;127.0.0.1,password&#x3D;******&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;connectionStrings&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br></pre></td></tr></table></figure></li><li><p>接下來回到SessionState中找到redis的設定, 加入connectionStringName, 並且把host, accesskey都刪除  如下所示</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;add name&#x3D;&quot;DefaultSessionProvider&quot; type&#x3D;&quot;Microsoft.Web.Redis.RedisSessionStateProvider&quot; connectionStringName &#x3D;&quot;Redis&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure></li><li><p>這樣Redis State Provider就會依照ConnectionStrings的設定抓取對應的連線字串, 而連線字串可透過Configuration Manager依環境做切換</p></li></ul><h3 id="如此設置會依照部屬環境自動切換連線-打完收工"><a href="#如此設置會依照部屬環境自動切換連線-打完收工" class="headerlink" title="如此設置會依照部屬環境自動切換連線, 打完收工"></a>如此設置會依照部屬環境自動切換連線, 打完收工</h3>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> Redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Use Redis As State Provider</title>
+      <link href="2019/04/19/Use-Redis-As-State-Provider/"/>
+      <url>2019/04/19/Use-Redis-As-State-Provider/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Redis提供速度卓越的Caching-Service"><a href="#Redis提供速度卓越的Caching-Service" class="headerlink" title="Redis提供速度卓越的Caching Service"></a>Redis提供速度卓越的Caching Service</h2><h2 id="既然是Caching-Service-那拿來取代Session操作也是很合理的"><a href="#既然是Caching-Service-那拿來取代Session操作也是很合理的" class="headerlink" title="既然是Caching Service, 那拿來取代Session操作也是很合理的"></a>既然是Caching Service, 那拿來取代Session操作也是很合理的</h2><a id="more"></a><h3 id="以下介紹如何實做-Redis-Session-State-Provider"><a href="#以下介紹如何實做-Redis-Session-State-Provider" class="headerlink" title="以下介紹如何實做 Redis Session State Provider"></a>以下介紹如何實做 Redis Session State Provider</h3><ul><li><h3 id="首先先開啟NuGet-搜尋-redissessionstateprovider"><a href="#首先先開啟NuGet-搜尋-redissessionstateprovider" class="headerlink" title="首先先開啟NuGet, 搜尋 redissessionstateprovider"></a>首先先開啟NuGet, 搜尋 redissessionstateprovider</h3>  <img src="/2019/04/19/Use-Redis-As-State-Provider/01.png" class=""><p>  選取Microsoft提供的套件, 記得選取對應的 .NETFramework版本</p></li><li><h3 id="選取Accept-等候安裝完成"><a href="#選取Accept-等候安裝完成" class="headerlink" title="選取Accept 等候安裝完成"></a>選取Accept 等候安裝完成</h3>  <img src="/2019/04/19/Use-Redis-As-State-Provider/02.png" class=""><p>  安裝完後會跳出readme.txt, 講Azure有提供Redis 的資源</p></li><li><h3 id="在Web-config中找到-sessionState區塊-在-providers內將原有的部份mark起來-再加入以下字串"><a href="#在Web-config中找到-sessionState區塊-在-providers內將原有的部份mark起來-再加入以下字串" class="headerlink" title="在Web.config中找到 sessionState區塊, 在 providers內將原有的部份mark起來, 再加入以下字串"></a>在Web.config中找到 sessionState區塊, 在 providers內將原有的部份mark起來, 再加入以下字串</h3>  <img src="/2019/04/19/Use-Redis-As-State-Provider/03.png" class="">  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;add name&#x3D;&quot;DefaultSessionProvider&quot; type&#x3D;&quot;Microsoft.Web.Redis.RedisSessionStateProvider&quot; host&#x3D;&quot;127.0.0.1&quot; accessKey&#x3D;&quot;&quot; ssl&#x3D;&quot;false&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure><p>  ip記得替換成redis的位置</p></li><li><h3 id="就可以已原有操作Session方式使用了"><a href="#就可以已原有操作Session方式使用了" class="headerlink" title="就可以已原有操作Session方式使用了~"></a>就可以已原有操作Session方式使用了~</h3>  <figure class="highlight c"><figcaption><span>#</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var session = CurrentContext.Session;</span><br><span class="line">session[$<span class="string">"Server_&#123;Token&#125;"</span>] = token;</span><br></pre></td></tr></table></figure></li></ul><h3 id="簡單易用-又可做到Session-State獨立存放-便於後續rolling-deployment之用"><a href="#簡單易用-又可做到Session-State獨立存放-便於後續rolling-deployment之用" class="headerlink" title="簡單易用~ 又可做到Session State獨立存放, 便於後續rolling deployment之用"></a>簡單易用~ 又可做到Session State獨立存放, 便於後續rolling deployment之用</h3>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> Redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Zapier Convert Flac to MP3 via Dropbox - 02</title>
+      <link href="2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/"/>
+      <url>2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/</url>
+      
+        <content type="html"><![CDATA[<h1 id="使用Zapier自動化轉檔與儲存-下"><a href="#使用Zapier自動化轉檔與儲存-下" class="headerlink" title="使用Zapier自動化轉檔與儲存 (下)"></a>使用Zapier自動化轉檔與儲存 (下)</h1><p>文章長, 圖片多慎入~</p><a id="more"></a><h2 id="利用Zapier將CloudConvert轉檔完的檔案-儲存至指定Dropbox-folder"><a href="#利用Zapier將CloudConvert轉檔完的檔案-儲存至指定Dropbox-folder" class="headerlink" title="利用Zapier將CloudConvert轉檔完的檔案, 儲存至指定Dropbox folder"></a>利用Zapier將CloudConvert轉檔完的檔案, 儲存至指定Dropbox folder</h2><h3 id="連結Zapier與CloudConvert"><a href="#連結Zapier與CloudConvert" class="headerlink" title="連結Zapier與CloudConvert"></a>連結Zapier與CloudConvert</h3><ul><li><p>回到首頁, 這次我們目標是將CloudConvert轉檔完的資料Save下來, </p><p>所以我們選擇 <strong>Save CloudConvert Conversions to Dropbox</strong></p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/29.png" class=""></li><li><p>這個動作一樣只有一個, 按下Continue繼續</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/30.png" class=""></li><li><p>因為先前已經建立 Zapier&lt;–&gt;CloudConvert的連結, 所以測試可以跳過, 確認無誤就按下Continue繼續</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/31.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/32.png" class=""></li></ul><h3 id="連結-Zapier與-Dropbox"><a href="#連結-Zapier與-Dropbox" class="headerlink" title="連結 Zapier與 Dropbox"></a>連結 Zapier與 Dropbox</h3><ul><li><p>Dropbox這段動作就是Upload File, 按下Continue繼續, </p><p>因為之前也建立過 Zapier &lt;–&gt; Dropbox連結, 所以確認後Continue</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/33.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/34.png" class=""></li><li><p>選擇存檔的folder, 這次目標是Dropbox上Music資料夾</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/35.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/36.png" class=""></li><li><p>確認無誤後, 可以測試這個Zap的運行</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/37.png" class=""></li><li><p>如果測試成功, dropbox的music folder便會顯示剛剛轉檔完後下載的mp3檔案</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/38.png" class=""></li><li><p>打完收工<del>~</del>!!  謝謝收看</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/39.png" class=""></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Zapier </tag>
+            
+            <tag> CloudConvert </tag>
+            
+            <tag> Dropbox </tag>
+            
+            <tag> MP3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Zapier Convert Flac to MP3 via Dropbox - 01</title>
+      <link href="2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/"/>
+      <url>2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/</url>
+      
+        <content type="html"><![CDATA[<h1 id="使用Zapier自動化轉檔與儲存-上"><a href="#使用Zapier自動化轉檔與儲存-上" class="headerlink" title="使用Zapier自動化轉檔與儲存 (上)"></a>使用Zapier自動化轉檔與儲存 (上)</h1><p>文章長, 圖片多慎入~</p><a id="more"></a><p>最近開始研究Zapier到底能做多少事, 發現他連上的服務比IFTTT多好多啊..</p><p>至少多兩倍有</p><p>此篇文章就藉由<strong>Zapier</strong>連結 <strong>Dropbox</strong> 與 <strong>CloudConvert</strong>兩大網路服務來達成自動轉檔的功能 <strong>Flac-&gt; MP3</strong></p><p>要達成這功能, 分為兩個Zap, 分別是</p><ul><li><p>利用Zapier監控Dropbox指定資料夾新增檔案, 並將檔案傳給CloudConvert</p></li><li><p>利用Zapier將CloudConvert轉完的檔案轉存到Dropbox指定資料夾</p></li></ul><hr><h2 id="利用Zapier監控Dropbox指定資料夾新增檔案-並將檔案傳給CloudConvert"><a href="#利用Zapier監控Dropbox指定資料夾新增檔案-並將檔案傳給CloudConvert" class="headerlink" title="利用Zapier監控Dropbox指定資料夾新增檔案, 並將檔案傳給CloudConvert"></a>利用Zapier監控Dropbox指定資料夾新增檔案, 並將檔案傳給CloudConvert</h2><h3 id="連結Zapier與Dropbox"><a href="#連結Zapier與Dropbox" class="headerlink" title="連結Zapier與Dropbox"></a>連結Zapier與Dropbox</h3><ul><li><p>首先先登入或註冊Zapier</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/1.png" class=""></li><li><p>在左邊格子打上Dropbox, 選取下面的服務</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/2.png" class=""></li><li><p>接下來在右邊格子打上CloudConvert, 選取下面的服務</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/3.png" class=""></li><li><p>畫面會跳出兩個已存在的Zap, 這步驟先選取 <strong>Convert files added Dropbox folder with CloudConvert</strong>, </p><p>按下<strong>Use This Zap</strong></p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/4.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/5.png" class=""></li><li><p>畫面會顯示Dropbox Trigger, 並說明限制為何, 按下Continue繼續</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/6.png" class=""></li><li><p>按下Connect an Account, 登入dropbox並按下Allow</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/7.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/8.png" class=""></li><li><p>跳出Dropbox Account確認, 按下Test, 跳出Success代表設定成功</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/9.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/10.png" class=""></li><li><p>接下來選擇Dropbox上的Folder, 資料夾須自己建立, 這次是要選擇Convert資料夾</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/11.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/12.png" class=""></li><li><p>再來本機有裝dropbox套件的話, 移至本機的Dropbox資料夾, 選擇Convert資料夾, 貼上要轉的flac檔</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/13.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/14.png" class=""></li><li><p>這時候Zapier畫面會顯示抓到測試檔案, 選擇Continue繼續</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/15.png" class=""></li></ul><h3 id="連結Zapier與CloudConvert"><a href="#連結Zapier與CloudConvert" class="headerlink" title="連結Zapier與CloudConvert"></a>連結Zapier與CloudConvert</h3><ul><li><p>現在來設定CloudConvert動作, 只有一個<strong>Convert File</strong>, 選Continue繼續</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/16.png" class=""></li><li><p>連結CloudConvert, 按下Connect an Acount</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/17.png" class=""></li><li><p>再來會看到要輸入CloudConvert API Key, 到<a href="https://cloudconvert.com/" title="" target="">CloudConvert</a>網站, </p><p>若沒有帳號就註冊一個, 在帳號下左邊選擇 <strong>API V1</strong>-&gt;<strong>API Keys</strong>, </p><p>將右側的API Key copy起來, 填入Zapier連結的頁面中</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/18.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/19.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/20.png" class=""></li><li><p>再來就可以測試看看 看到Success代表設定成功</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/21.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/22.png" class=""></li><li><p>終於快完成第一步了~, 在Output Format選擇要轉的格式, 這邊是轉MP3</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/23.png" class=""></li><li><p>Save選項看個人, 選擇yes他會殘留檔案在CloudConvert上, </p><p>選擇no則是下載一次後就刪除</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/25.png" class=""></li><li><p>最後對這個Zap設定做個Final Test, 成功就完成第一步驟</p><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/26.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/27.png" class=""><img src="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-01/28.png" class=""></li></ul><h3 id="下一篇介紹存檔的Zap設定"><a href="#下一篇介紹存檔的Zap設定" class="headerlink" title="下一篇介紹存檔的Zap設定"></a>下一篇介紹存檔的Zap設定</h3><a href="/2019/03/15/Zapier-Convert-Flac-to-MP3-via-Dropbox-02/" title="Zapier Convert Flac to MP3 via Dropbox - 02">Zapier Convert Flac to MP3 via Dropbox - 02</a>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Zapier </tag>
+            
+            <tag> CloudConvert </tag>
+            
+            <tag> Dropbox </tag>
+            
+            <tag> MP3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Share Rss to linkedin via Zapier</title>
+      <link href="2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/"/>
+      <url>2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/</url>
+      
+        <content type="html"><![CDATA[<h1 id="透過-Zapier-轉發-blog-到-Linkedin"><a href="#透過-Zapier-轉發-blog-到-Linkedin" class="headerlink" title="透過 Zapier 轉發 blog 到 Linkedin"></a>透過 Zapier 轉發 blog 到 Linkedin</h1><p> 假設IFTTT share to linkedin功能消失時 <em>(對.. 就這麼突然消失了)</em></p><p> 我們還可以透過 Zapier來做到一樣的事情</p><a id="more"></a><ul><li><p>首先  <strong>註冊Zapier</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/1.png" class=""></li><li><p>接下來會看到<strong>create zap</strong>的畫面</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/2.png" class=""></li><li><p>在 Connect this app 中填入 RSS, 選擇<strong>RSS by Zapier</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/3.png" class=""></li><li><p>接下來 在with this one!中 填入LinkedIn, 選擇<strong>LinkedIn</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/4.png" class=""></li><li><p>接下來下面的選項會開啟</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/5.png" class=""></li><li><p>接下來就是設定RSS的動作了, 在When this happens中選擇 <strong>New item in Feed</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/6.png" class=""></li><li><p>在 then do this!中選擇<strong>Create Share Update</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/7.png" class=""></li><li><p>按下 <strong>Use Zap</strong>, 會轉入Dashboard頁面做細部設定</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/8.png" class=""></li><li><p>在 Feed URL中填入部落格的RSS網址, 然後按下 <strong>Continue</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/9.png" class=""></li><li><p>接下來 Zapier會去爬RSS中前三篇文章下來, 讓你看看格式, 格式沒問題就選擇 <strong>Continue</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/10.png" class=""></li><li><p>接下來點選 <strong>LinkedIn</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/11.png" class=""></li><li><p>選取 <strong>Create Share Update</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/12.png" class=""></li><li><p>點選 <strong>Connect an Account</strong>去授權 Zapier存取自己LinkedIn帳號</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/13.png" class=""></li><li><p>登入後點選<strong>Allow</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/14.png" class=""></li><li><p>選擇 <strong>Test</strong> 測試與LinkedIn的連結</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/15.png" class=""></li><li><p>看到<strong>Success</strong>後, 選擇 <strong>Save + Continue</strong> 繼續下一步</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/16.png" class=""></li><li><p>接下來選擇分享的格式, 這邊選擇的是 <strong>Title, Content與 Link</strong></p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/17.png" class=""><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/18.png" class=""></li><li><p>按下<strong>Continue</strong>後, 可看preview, Zapier比IFTTT好的點是他可以直接送出Test</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/19.png" class=""></li><li><p>點選 <strong>Send Test To LinkedIn</strong>後, 如果設定無誤, 可以看到測試成功的頁面</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/20.png" class=""></li><li><p>接下來去LinkedIn看看分享的格式是不是自己想要的, 如果格式不對可以回 <strong>Edit Template</strong>繼續調整</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/21.png" class=""></li><li><p>如果分享內容沒問題, 按下 <strong>Finish</strong>後, 對這個Zap取個名字, 然後記得<strong>On</strong>這個服務, 設定就大功告成了!!</p><img src="/2019/03/15/Zapier-RSS-to-LinkedIn-Preview-Platform/22.png" class=""></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> RSS </tag>
+            
+            <tag> LinkedIn </tag>
+            
+            <tag> Zapier </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自訂 IFTTT Applet 初體驗</title>
+      <link href="2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/"/>
+      <url>2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/</url>
+      
+        <content type="html"><![CDATA[<h2 id="如果IFTTT上提供的現有功能不敷使用-可以建立屬於自己的Applet"><a href="#如果IFTTT上提供的現有功能不敷使用-可以建立屬於自己的Applet" class="headerlink" title="如果IFTTT上提供的現有功能不敷使用, 可以建立屬於自己的Applet"></a>如果IFTTT上提供的現有功能不敷使用, 可以建立屬於自己的Applet</h2><a id="more"></a><h3 id="IFTTT-就是-IF-This-Then-That的縮寫"><a href="#IFTTT-就是-IF-This-Then-That的縮寫" class="headerlink" title="IFTTT 就是 IF This Then That的縮寫"></a>IFTTT 就是 IF This Then That的縮寫</h3><p>之前使用的RSS to LinkedIn Applet, 轉發去LinkedIn缺少預覽功能, 但是又沒選項可以調整</p><p>因此打算自己建立Applet</p><p>在IFTTT上建立Applet有兩種方式, </p><ol><li><p>Create new applet directly</p></li><li><p>Create applet by IFTTT platform</p></li></ol><h3 id="此篇先介紹第一種方式"><a href="#此篇先介紹第一種方式" class="headerlink" title="此篇先介紹第一種方式"></a>此篇先介紹第一種方式</h3><hr><ul><li>首先到<a href="%5Bhttps://ifttt.com/discover%5D" title="" target="">IFTTT</a>左上角註冊會員<img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/1.png" class=""></li></ul><ul><li>註冊完後下拉式選單選擇 <strong>New Applet</strong><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/2.png" class="">   </li></ul><ul><li>就會看到如下圖所示, 點選 <strong>this</strong><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/3.png" class=""></li></ul><ul><li>就會跳出現有服務選擇<img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/4.png" class=""></li></ul><ul><li><p>由於這次是要修改RSS to LinkedIn的格式, 在輸入框中打入RSS便會跳出服務</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/5.png" class=""></li><li><p>在trigger中選擇 New feed item</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/6.png" class=""></li><li><p>在Feed URL內填上RSS檔案位置</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/7.png" class=""></li><li><p>跳回if this then that, 這時候可以注意到 this被換成RSS了, 選擇that繼續</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/8.png" class=""></li><li><p>在service中打上LinkedIn, 選取服務</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/9.png" class=""></li><li><p>選擇Share an update</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/10.png" class=""></li><li><p>接下來就是選擇該怎麼呈現在LinkedIn上的內容, 按下Add ingredient選擇, 經過多次嘗試, 如下圖選取就會呈現出Blog縮圖</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/11.png" class=""></li><li><p>按下Create action後, 跳出Review and finish的頁面, 修改一下敘述即完成</p><img src="/2019/03/06/IFTTT-RSS-to-LinkedIn-Preview/11.png" class=""></li></ul><hr><p>第一種方式優點, 能迅速搭建IFTTT功能, 缺點是彈性不大, 可以發現RSS feed url被刻死了, 因此只適合自己用</p><p>第二種方式留待下篇介紹</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> IFTTT </tag>
+            
+            <tag> RSS </tag>
+            
+            <tag> LinkedIn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C# Exception</title>
+      <link href="2019/03/05/CSharp-Exception-YTYKBYD/"/>
+      <url>2019/03/05/CSharp-Exception-YTYKBYD/</url>
+      
+        <content type="html"><![CDATA[<h1 id="–-那些以為知道-實際上卻不知道的事-–"><a href="#–-那些以為知道-實際上卻不知道的事-–" class="headerlink" title="– 那些以為知道, 實際上卻不知道的事 –"></a>– 那些以為知道, 實際上卻不知道的事 –</h1><p>身為工程師, 在 <strong>必要時</strong> 設置try catch then throw exception是很合理的事</p><a id="more"></a><p>但是當 <strong><del>共用</del></strong> 的元件變多之後, 彼此間的try catch轉拋exception就顯得複雜許多</p><p>尤其是踩到提供元件的同事 <strong><del>無心</del></strong> 留下的bug時</p><p>這時候throw exception指出的位置, 未必是真正錯誤的程式碼</p><p>譬如以下程式碼<img src="/2019/03/05/CSharp-Exception-YTYKBYD/1.png" class=""></p><p>他指出錯誤的地方會是在行數19, 而不是真正錯誤碼的位置行數25<img src="/2019/03/05/CSharp-Exception-YTYKBYD/2.png" class=""></p><h2 id="因為-throw-ex-會重置拋出點位置-導致偵錯不易"><a href="#因為-throw-ex-會重置拋出點位置-導致偵錯不易" class="headerlink" title="因為 throw ex; 會重置拋出點位置, 導致偵錯不易"></a>因為 throw ex; 會重置拋出點位置, 導致偵錯不易</h2><p>此時可採用以下兩種方式取代throw ex;</p><ul><li><p><strong>Throw</strong></p><p>  這時候單純throw 機制, <img src="/2019/03/05/CSharp-Exception-YTYKBYD/3.png" class=""> </p><p>  便能正確反映出錯誤位置所在</p>  <img src="/2019/03/05/CSharp-Exception-YTYKBYD/4.png" class=""></li></ul><hr><ul><li><p><strong>Inner Exception</strong></p><p>  如果要加入客製化錯誤訊息, 可以採用 inner exception,</p>  <img src="/2019/03/05/CSharp-Exception-YTYKBYD/5.png" class=""><p>  也可確保拋出點不被重置</p>  <img src="/2019/03/05/CSharp-Exception-YTYKBYD/6.png" class=""></li></ul><p>所以 <strong>不要</strong> 在最外層, 將stack整段印出當作exception log, 完全沒有幫助</p><h2 id="You-think-you-know-but-you-don’t"><a href="#You-think-you-know-but-you-don’t" class="headerlink" title="You think you know but you don’t"></a>You think you know but you don’t</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> Exception </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Share blog to linkedin by RSS feed</title>
+      <link href="2019/03/01/Share-blog-rss-feed-to-linkedin/"/>
+      <url>2019/03/01/Share-blog-rss-feed-to-linkedin/</url>
+      
+        <content type="html"><![CDATA[<h2 id="如何自動將寫好的Blog-轉發至LinkedIn-其實很簡單"><a href="#如何自動將寫好的Blog-轉發至LinkedIn-其實很簡單" class="headerlink" title="如何自動將寫好的Blog 轉發至LinkedIn, 其實很簡單"></a>如何自動將寫好的Blog 轉發至LinkedIn, 其實很簡單</h2><h3 id="首先安裝-hexo-generator-feed"><a href="#首先安裝-hexo-generator-feed" class="headerlink" title="首先安裝 hexo-generator-feed"></a>首先安裝 hexo-generator-feed</h3><a id="more"></a><p>接著確定atom.xml有 資料產出, RSS設定就算完成了<img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/3.png" class=""></p><p>然後開啟 <a href="%5Bhttps://ifttt.com/connect/feed/linkedin%5D" title="" target="">IFTTT RSS to LinkedIn</a></p><p>點選右下角的 RSS to LinkedIn <img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/4.png" class=""></p><p>然後進入下圖畫面, 點選 in去設定 IFTTT與Linkedin的授權</p><img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/5.png" class=""><img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/6.png" class=""><img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/7.png" class=""><p>接著回到 RSS to LinkedIn, 選擇Turn on, 等他進入設定畫面</p><img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/8.png" class=""><p>將 剛剛設定好的 atom.xml網址填上 Feed URL, 然後點選Save, 等他設定完成</p><img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/9.png" class=""><p>發布後等個幾分鐘, IFTTT會顯示觸發成功訊息</p><img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/11.png" class=""><p>就成功在LinkedIn上面, 轉錄自己的blog文章囉</p><img src="/2019/03/01/Share-blog-rss-feed-to-linkedin/12.png" class="">]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> IFTTT </tag>
+            
+            <tag> RSS </tag>
+            
+            <tag> LinkedIn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Add Visitors Counter into Hexo Next</title>
+      <link href="2019/02/26/Add-Visitors-Counter-into-Hexo-Next/"/>
+      <url>2019/02/26/Add-Visitors-Counter-into-Hexo-Next/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Firebase是-Google專為行動應用開發者所提供的後端平台服務-BaaS-可以快速搭建後端以及資料儲存服務-並提供強大的分析工具"><a href="#Firebase是-Google專為行動應用開發者所提供的後端平台服務-BaaS-可以快速搭建後端以及資料儲存服務-並提供強大的分析工具" class="headerlink" title="Firebase是 Google專為行動應用開發者所提供的後端平台服務 (BaaS), 可以快速搭建後端以及資料儲存服務, 並提供強大的分析工具"></a>Firebase是 Google專為行動應用開發者所提供的後端平台服務 (BaaS), 可以快速搭建後端以及資料儲存服務, 並提供強大的分析工具</h2><h3 id="Hexo-Next在Blog中也提供-Firebase支援-紀錄文章瀏覽次數等統計數據"><a href="#Hexo-Next在Blog中也提供-Firebase支援-紀錄文章瀏覽次數等統計數據" class="headerlink" title="Hexo Next在Blog中也提供 Firebase支援, 紀錄文章瀏覽次數等統計數據"></a>Hexo Next在Blog中也提供 Firebase支援, 紀錄文章瀏覽次數等統計數據</h3><a id="more"></a><ul><li><h3 id="首先-先到-首頁-登入google-帳號-然後按下-GET-STARTED"><a href="#首先-先到-首頁-登入google-帳號-然後按下-GET-STARTED" class="headerlink" title="首先 先到 首頁, 登入google 帳號, 然後按下 GET STARTED "></a>首先 先到 <a href="%5Bhttps://firebase.google.com/?hl=zh-tw%5D" title="" target="">Firebase</a>首頁, 登入google 帳號, 然後按下 GET STARTED <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/1.png" class=""></h3></li><li><h3 id="接著新增專案"><a href="#接著新增專案" class="headerlink" title="接著新增專案 "></a>接著新增專案 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/2.png" class=""></h3></li><li><h3 id="填入專案名稱-這邊以hexo-net-visitors-counter為例"><a href="#填入專案名稱-這邊以hexo-net-visitors-counter為例" class="headerlink" title="填入專案名稱, 這邊以hexo-net-visitors-counter為例"></a>填入專案名稱, 這邊以hexo-net-visitors-counter為例<img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/3.png" class=""></h3></li><li><h3 id="按下建立專案後-等待firebase建立"><a href="#按下建立專案後-等待firebase建立" class="headerlink" title="按下建立專案後, 等待firebase建立 "></a>按下建立專案後, 等待firebase建立 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/4.png" class=""></h3></li><li><h3 id="看到專案就緒後-按下繼續-進入Firebase專案頁"><a href="#看到專案就緒後-按下繼續-進入Firebase專案頁" class="headerlink" title="看到專案就緒後, 按下繼續, 進入Firebase專案頁 "></a>看到專案就緒後, 按下<strong>繼續</strong>, 進入Firebase專案頁 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/5.png" class=""></h3></li><li><h3 id="選擇-Database-按下建立資料庫"><a href="#選擇-Database-按下建立資料庫" class="headerlink" title="選擇 Database, 按下建立資料庫 "></a>選擇 Database, 按下<strong>建立資料庫</strong> <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/6.png" class=""></h3></li><li><h3 id="選擇以鎖定模式啟動-等待安全設定完成"><a href="#選擇以鎖定模式啟動-等待安全設定完成" class="headerlink" title="選擇以鎖定模式啟動, 等待安全設定完成 "></a>選擇<strong>以鎖定模式啟動</strong>, 等待安全設定完成 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/7.png" class=""></h3></li><li><h3 id="接下來在左上角選擇專案設定"><a href="#接下來在左上角選擇專案設定" class="headerlink" title="接下來在左上角選擇專案設定 "></a>接下來在左上角選擇專案設定 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/8.png" class=""></h3></li><li><h3 id="將專案ID跟API-key複製下來"><a href="#將專案ID跟API-key複製下來" class="headerlink" title="將專案ID跟API key複製下來 "></a>將專案ID跟API key複製下來 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/9.png" class=""></h3></li><li><h3 id="接著開啟-Next的-config-yml-填入以下設定參數"><a href="#接著開啟-Next的-config-yml-填入以下設定參數" class="headerlink" title="接著開啟 Next的_config.yml, 填入以下設定參數"></a>接著開啟 Next的_config.yml, 填入以下設定參數</h3>  <strong>articles</strong>是給 firebase用的集合id, 這邊若做修改, firebase設定也要跟著改   <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/10.png" class=""></li><li><h3 id="我們回到firebase網頁-按下Database-選擇規則"><a href="#我們回到firebase網頁-按下Database-選擇規則" class="headerlink" title="我們回到firebase網頁, 按下Database, 選擇規則 "></a>我們回到firebase網頁, 按下<strong>Database</strong>, 選擇<strong>規則</strong> <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/11.png" class=""></h3></li><li><h3 id="在右方出現的規則script-加入權限判斷"><a href="#在右方出現的規則script-加入權限判斷" class="headerlink" title="在右方出現的規則script, 加入權限判斷 "></a>在右方出現的規則script, 加入權限判斷 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/12.png" class=""></h3></li><li><h3 id="發佈後等待幾分鐘讓他生效-接著回到文章-點選看看-次數應該會增加"><a href="#發佈後等待幾分鐘讓他生效-接著回到文章-點選看看-次數應該會增加" class="headerlink" title="發佈後等待幾分鐘讓他生效, 接著回到文章, 點選看看, 次數應該會增加 "></a>發佈後等待幾分鐘讓他生效, 接著回到文章, 點選看看, 次數應該會增加 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/18.png" class=""></h3></li><li><h3 id="回頭來看-firebase的資料集合-應該會呈現下圖所示-文章標題與count數都紀錄進來了"><a href="#回頭來看-firebase的資料集合-應該會呈現下圖所示-文章標題與count數都紀錄進來了" class="headerlink" title="回頭來看 firebase的資料集合, 應該會呈現下圖所示, 文章標題與count數都紀錄進來了 "></a>回頭來看 firebase的資料集合, 應該會呈現下圖所示, 文章標題與count數都紀錄進來了 <img src="/2019/02/26/Add-Visitors-Counter-into-Hexo-Next/17.png" class=""></h3></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Firebase </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>整合Disqus comment 進 Hexo</title>
+      <link href="2019/02/25/disqus-plugin-with-hexo/"/>
+      <url>2019/02/25/disqus-plugin-with-hexo/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Disqus是個專門提供留言板的服務-且具有強大的整合能力-適合整合在blog-forum以及一些社群網站"><a href="#Disqus是個專門提供留言板的服務-且具有強大的整合能力-適合整合在blog-forum以及一些社群網站" class="headerlink" title="Disqus是個專門提供留言板的服務, 且具有強大的整合能力, 適合整合在blog, forum以及一些社群網站"></a>Disqus是個專門提供留言板的服務, 且具有強大的整合能力, 適合整合在blog, forum以及一些社群網站</h2><a id="more"></a><ul><li><h3 id="首先先去-註冊會員"><a href="#首先先去-註冊會員" class="headerlink" title="首先先去  註冊會員. "></a>首先先去 <a href="%5Bhttps://disqus.com/%5D" title="" target="">Disqus</a> 註冊會員. <img src="/2019/02/25/disqus-plugin-with-hexo/1.png" class=""></h3></li><li><h3 id="接下來跳出選項-選擇-I-want-to-install-Disqus-on-my-site"><a href="#接下來跳出選項-選擇-I-want-to-install-Disqus-on-my-site" class="headerlink" title="接下來跳出選項, 選擇 I want to install Disqus on my site. "></a>接下來跳出選項, 選擇 I want to install Disqus on my site. <img src="/2019/02/25/disqus-plugin-with-hexo/2.png" class=""></h3></li><li><h3 id="把new-site資料填好-按下Create-Site"><a href="#把new-site資料填好-按下Create-Site" class="headerlink" title="把new site資料填好, 按下Create Site. "></a>把new site資料填好, 按下Create Site. <img src="/2019/02/25/disqus-plugin-with-hexo/3.png" class=""></h3></li><li><h3 id="選擇Basic-Plan"><a href="#選擇Basic-Plan" class="headerlink" title="選擇Basic Plan "></a>選擇Basic Plan <img src="/2019/02/25/disqus-plugin-with-hexo/4.png" class=""></h3></li><li><h3 id="在platform-中拉到最下面-選擇-Universal-Code"><a href="#在platform-中拉到最下面-選擇-Universal-Code" class="headerlink" title="在platform 中拉到最下面, 選擇 Universal Code "></a>在platform 中拉到最下面, 選擇 Universal Code <img src="/2019/02/25/disqus-plugin-with-hexo/5.png" class=""></h3></li><li><h3 id="在instructions-頁面中-直接拉到最下面-選擇-Configure"><a href="#在instructions-頁面中-直接拉到最下面-選擇-Configure" class="headerlink" title="在instructions 頁面中, 直接拉到最下面 選擇 Configure "></a>在instructions 頁面中, 直接拉到最下面 選擇 Configure <img src="/2019/02/25/disqus-plugin-with-hexo/6.png" class=""></h3></li><li><h3 id="在Website-Name填上剛剛申請的site-name-Website-URL填上blog網址-按下Complete-Setup"><a href="#在Website-Name填上剛剛申請的site-name-Website-URL填上blog網址-按下Complete-Setup" class="headerlink" title="在Website Name填上剛剛申請的site name, Website URL填上blog網址, 按下Complete Setup"></a>在Website Name填上剛剛申請的site name, Website URL填上blog網址, 按下Complete Setup<img src="/2019/02/25/disqus-plugin-with-hexo/7.png" class=""></h3></li><li><h3 id="設定就完成了"><a href="#設定就完成了" class="headerlink" title="設定就完成了 "></a>設定就完成了 <img src="/2019/02/25/disqus-plugin-with-hexo/8.png" class=""></h3></li><li><h3 id="接下來去Hexo-gt-themes-gt-主題資料夾-gt-config-yml中開啟disqus設定-這邊以next做示範"><a href="#接下來去Hexo-gt-themes-gt-主題資料夾-gt-config-yml中開啟disqus設定-這邊以next做示範" class="headerlink" title="接下來去Hexo -&gt; themes -&gt; 主題資料夾 -&gt; _config.yml中開啟disqus設定, 這邊以next做示範 "></a>接下來去Hexo -&gt; themes -&gt; 主題資料夾 -&gt; _config.yml中開啟disqus設定, 這邊以next做示範 <img src="/2019/02/25/disqus-plugin-with-hexo/9.png" class=""></h3></li><li><h3 id="發布Hexo後-就能看到blog下方出現Comments-區囉"><a href="#發布Hexo後-就能看到blog下方出現Comments-區囉" class="headerlink" title="發布Hexo後, 就能看到blog下方出現Comments 區囉 "></a>發布Hexo後, 就能看到blog下方出現Comments 區囉 <img src="/2019/02/25/disqus-plugin-with-hexo/10.png" class=""></h3></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Disqus </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C# String</title>
+      <link href="2019/02/18/string-YTYKBYD/"/>
+      <url>2019/02/18/string-YTYKBYD/</url>
+      
+        <content type="html"><![CDATA[<h1 id="–-那些以為知道-實際上卻不知道的事-–"><a href="#–-那些以為知道-實際上卻不知道的事-–" class="headerlink" title="– 那些以為知道, 實際上卻不知道的事 –"></a>– 那些以為知道, 實際上卻不知道的事 –</h1><p>String 一般操作上 與 Value Type類似 但String 為 <strong>Reference Type</strong> 且為 <strong>Immutable Type</strong></p><p>String底層有個<strong>string pool</strong>的設計, 用來紀錄建立過得字串, 以便自動重用以建立過得字串實體, 減少記憶體消耗</p><a id="more"></a><h2 id="Immutable-Type"><a href="#Immutable-Type" class="headerlink" title="Immutable Type"></a>Immutable Type</h2><pre><code>Immutable Type特性在於每次更改值, 他便會回傳新的實體String 之所以設計為Immutable Type, 原因是在於方便程式撰寫用途</code></pre><p>譬如<img src="/2019/02/18/string-YTYKBYD/1.png" class=""></p><p>假設 String是mutable type 設計, str1要是改了字串, str2與str3 勢必會跟著變動</p><p>如此一來 string使用上沒有這麼便利, 因此需要 immutable type的設計</p><h2 id="String-pool"><a href="#String-pool" class="headerlink" title="String pool"></a>String pool</h2><pre><code>String pool 會自動重用已建立過得字串實體</code></pre><p>譬如<img src="/2019/02/18/string-YTYKBYD/2.png" class=""></p><p>結果會是<img src="/2019/02/18/string-YTYKBYD/3.png" class=""></p><p>綜合上述所說, 以下例子試著回答看看結果</p><img src="/2019/02/18/string-YTYKBYD/4.png" class=""><p>結果是</p><img src="/2019/02/18/string-YTYKBYD/5.png" class=""><h1 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h1><hr><ul><li><a href="http://larrynung.github.io/2011/06/30/30763/" title="" target="">[.Net Concept]理解並善用String pool</a></li></ul><ul><li><a href="https://www.c-sharpcorner.com/UploadFile/b1df45/string-is-immutable-in-C-Sharp/" title="" target="">String is Immutable in C#</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> String </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C# Boxing &amp; Unboxing</title>
+      <link href="2019/02/14/boxing-unboxing/"/>
+      <url>2019/02/14/boxing-unboxing/</url>
+      
+        <content type="html"><![CDATA[<h1 id="–-那些以為知道-實際上卻不知道的事-–"><a href="#–-那些以為知道-實際上卻不知道的事-–" class="headerlink" title="– 那些以為知道, 實際上卻不知道的事 –"></a>– 那些以為知道, 實際上卻不知道的事 –</h1><blockquote><h2 id="Boxing-Unboxing"><a href="#Boxing-Unboxing" class="headerlink" title="Boxing, Unboxing"></a>Boxing, Unboxing</h2><pre><code>簡單來說* Boxing : Value Type -&gt; Object* Unboxing : Object -&gt; Value Type</code></pre></blockquote><a id="more"></a><p>舉個例子Boxing:</p><img src="/2019/02/14/boxing-unboxing/3.png" class=""><p>Unboxing:</p><img src="/2019/02/14/boxing-unboxing/4.png" class=""><blockquote><p>其中Boxing前的 valueTypeI 記憶體位置與 </p><p>Unboxing後的 unBoxingValueTypeJ記憶體位置會不相同, 這是因為Value Type的因素</p></blockquote><p>有了以上的概念, 我們可以來挑戰一下以下幾種情形會有什麼結果</p><img src="/2019/02/14/boxing-unboxing/5.png" class=""><p>答案是:</p><img src="/2019/02/14/boxing-unboxing/6.png" class=""><pre><code>解題:objA == objB 比的是referenceobjA.Equals(objB)比的是值</code></pre><hr><p>另一題比較有挑戰性</p><img src="/2019/02/14/boxing-unboxing/7.png" class=""><p>答案是:</p><img src="/2019/02/14/boxing-unboxing/8.png" class=""><pre><code>解題:第一次(Counter)project.counter Unboxing後的ValueType記憶體位置與第二次(Counter)project.counter Unboxing後的記憶體位置不同所以第一次Increase()的結果不可能帶到第二次 Unboxing後的記憶體位置所以才會是這個結果</code></pre><p>你答對了嗎?</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> Boxing </tag>
+            
+            <tag> Unboxing </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C# Value Type vs Reference Type</title>
+      <link href="2019/02/12/value-type-and-reference-type/"/>
+      <url>2019/02/12/value-type-and-reference-type/</url>
+      
+        <content type="html"><![CDATA[<h1 id="–-那些以為知道-實際上卻不知道的事-–"><a href="#–-那些以為知道-實際上卻不知道的事-–" class="headerlink" title="– 那些以為知道, 實際上卻不知道的事 –"></a>– 那些以為知道, 實際上卻不知道的事 –</h1><p>對資深程式員來說, Value Type 跟 Reference Type的差異應該略知一二</p><p>但要能完整的解釋其中的差異, 卻沒這麼容易, 下面會舉幾個容易忽略的部份</p><a id="more"></a><blockquote><h2 id="Value-Type-與-Reference-Type的判別方式"><a href="#Value-Type-與-Reference-Type的判別方式" class="headerlink" title="Value Type 與 Reference Type的判別方式"></a>Value Type 與 Reference Type的判別方式</h2><pre><code>最容易判別的方式便是追朔該型別的原始型別* struct : Value Type* class : Reference Type</code></pre></blockquote><p>譬如 string 的原始型別是 class, 便是Reference Type</p><img src="/2019/02/12/value-type-and-reference-type/1.png" class=""><p>Int32的原始型別是struct, 便是Value Type</p><img src="/2019/02/12/value-type-and-reference-type/2.png" class=""><hr>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C# </tag>
+            
+            <tag> Value Type </tag>
+            
+            <tag> Reference Type </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="2017/07/16/hello-world/"/>
+      <url>2017/07/16/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
